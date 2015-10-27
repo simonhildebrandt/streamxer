@@ -1,0 +1,11 @@
+<h1>Collections</h1>
+
+<% @collections.each do |collection| %>
+  <h3><%= collection.name %></h3>
+  <% collection.collection_items.each do |item| %>
+    <div>
+      <h4><%= item.name %></h4>
+      <em><%= item.description %></em>
+    </div>
+  <% end %>
+<% end %>
