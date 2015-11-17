@@ -1,0 +1,9 @@
+<h2><%= @blog.title %></h2>
+<% @posts.each do |post| %>
+  <div>
+    <div>
+      <em><%= link_to post.published_at.to_s(:short), post.post_url %></em>
+    </div>
+    <%= render("#{post.type}_post", post: post) %>
+  </div>
+<% end %>

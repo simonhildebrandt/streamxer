@@ -1,0 +1,5 @@
+<h4><%= link_to post.title, post.post_url %></h4>
+<div>
+  <em><%= post.published_at.to_s(:short) %></em>
+</div>
+<%= post.body.html_safe %>

@@ -2,8 +2,9 @@
 
 <% @blogs.each do |blog| %>
   <div>
-    <h3><%= link_to blog.name, blog.url %></h3>
-    <em><%= blog.collection_names.to_sentence %></em><br/>
+    <h3><%= link_to blog.name, blog_path(blog) %> <%= link_to "&gt;".html_safe, blog.url %></h3>
+    <em><%= blog.posts.count %> posts, last updated on <%= blog.last_updated_at %> - <%= blog.collection_names.to_sentence %></em><br/>
     <em><%= blog.description %></em>
+    <%= render 'collections', blog: blog %>
   </div>
 <% end %>

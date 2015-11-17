@@ -1,0 +1,7 @@
+<% post.photos.each do |photo| %>
+  <% alt = photo.alt_sizes.first %>
+  <div>
+    <%= image_tag alt.url, width: alt.width, height: alt.height %>
+    <%= photo.caption %>
+  </div>
+<% end %>

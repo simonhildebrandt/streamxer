@@ -11,15 +11,26 @@ class Blog
   field :ask, type: Boolean
   field :ask_anon, type: Boolean
   field :display_type, type: String
+  field :last_updated_at, type: Time
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collections
+  has_many :posts
 
   validates :name, presence: true
 
 
+  def to_param
+    name
+  end
+
   def collection_names
     collections.map(&:name)
+  end
+
+  def update_posts!
+    Post.collect_posts!(self)
+    update_attributes! last_updated_at: Time.current
   end
 
   class << self

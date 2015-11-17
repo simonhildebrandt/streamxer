@@ -8,5 +8,7 @@ class Collection
 
   validates :user, :name, presence: true
 
-
+  def posts
+    Post.in(blog: blogs.map(&:id))
+  end
 end

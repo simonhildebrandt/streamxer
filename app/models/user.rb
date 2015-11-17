@@ -23,7 +23,7 @@ class User
     blogs = []
     offset = 0
     loop do
-      puts "collecting #{offset}"
+      puts "collecting blogs #{offset}"
       result = client.following(offset: offset)
       blogs += result['blogs'].map{|r| Blog.upsert!(r)}
       offset += 20
