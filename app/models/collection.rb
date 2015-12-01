@@ -8,6 +8,9 @@ class Collection
 
   validates :user, :name, presence: true
 
+  scope :search_by_name, -> (name) { where name: /#{name}/ }
+
+
   def posts
     Post.in(blog: blogs.map(&:id))
   end

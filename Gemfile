@@ -17,7 +17,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+#gem 'jquery-rails'
+
+gem 'jbuilder'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -27,7 +29,7 @@ gem 'jquery-rails'
 
 gem 'quiet_assets'
 gem 'tumblr_client'
-gem "browserify-rails", "~> 0.7"
+#gem "browserify-rails", "~> 0.7"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

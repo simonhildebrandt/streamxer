@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  resources :collections
-  get 'blogs' => 'blogs#index'
-  get 'blogs/:name' => 'blogs#show', as: :blog
+
+  get 'main' => 'main#index'
+
+  resources :collections do
+    collection { get :search }
+  end
+  resources :blogs
+
+  get 'socket.io', to: redirect('/404')
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

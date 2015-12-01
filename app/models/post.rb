@@ -7,9 +7,10 @@ class Post
 
   embeds_many :photos
 
-  belongs_to :blog
+  belongs_to :blog, counter_cache: :post_count
 
   scope :newest, -> { order(:published_at.desc) }
+  scope :photos, -> { where(type: 'photo') }
 
 
   def id=(t_id)

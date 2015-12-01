@@ -17,3 +17,4 @@
 /tmp
 
 config/initializers/tumblr_client.rb
+.byebug_history

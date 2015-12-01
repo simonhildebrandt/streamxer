@@ -1,5 +1,1 @@
-<div>
-  <% blog.collections.each do |collection| %>
-    <%= link_to collection.name, collection_path(collection) %>
-  <% end %>
-</div>
+<div class="blog-collection" data-blog="<%= blog.name %>"></div>

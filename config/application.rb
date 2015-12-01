@@ -26,6 +26,8 @@ module Streamxer
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
 
+    config.action_dispatch.perform_deep_munge = false
+
     config.generators do |g|
       g.orm :mongoid
     end

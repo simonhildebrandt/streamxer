@@ -1,6 +1,10 @@
 class CollectionsController < ApplicationController
   def index
-    @collections = current_user.collections
+    if params[:search]
+      @collections = current_user.collections.search_by_name(params[:search]).to_a
+    else
+      @collections = current_user.collections
+    end
   end
 
   def show
