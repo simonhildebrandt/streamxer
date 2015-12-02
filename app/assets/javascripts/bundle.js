@@ -35628,7 +35628,9 @@ Suite = React.createClass({
 });
 
 $(function() {
-  return ReactDOM.render(React.createElement(Suite), $('#main').get(0));
+  if ($('#main').length) {
+    return ReactDOM.render(React.createElement(Suite), $('#main').get(0));
+  }
 });
 
 },{"./blog":174,"./collections":175,"./factories":176,"./models":178,"backbone":5,"jquery":8,"react":172,"react-dom":9}],178:[function(require,module,exports){

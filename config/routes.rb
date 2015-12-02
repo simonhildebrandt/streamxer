@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'main' => 'main#index'
+  root 'main#index'
+  get 'welcome' => 'main#welcome', as: 'welcome'
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy', as: 'logout'
 
-  resources :collections do
-    collection { get :search }
-  end
+  resources :collections
   resources :blogs
 
   get 'socket.io', to: redirect('/404')

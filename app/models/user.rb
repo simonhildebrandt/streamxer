@@ -3,7 +3,7 @@ class User
 
   field :oauth_token, type: String
   field :oauth_token_secret, type: String
-  field :name, type: String
+  field :uid, type: String
 
   has_and_belongs_to_many :blogs
   has_many :collections

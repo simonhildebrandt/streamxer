@@ -7,7 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<% if logged_in? %>
+  <%= current_user.uid %>
+  <%= link_to 'logout', logout_path %>
+<% else %>
+  <%= link_to('log in', '/auth/tumblr') %>
+<% end %>
 <%= yield %>
 
 </body>

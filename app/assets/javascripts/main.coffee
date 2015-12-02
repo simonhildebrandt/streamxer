@@ -27,4 +27,5 @@ Suite = React.createClass
 
 
 $ ->
-  ReactDOM.render React.createElement(Suite), $('#main').get(0)
+  if $('#main').length
+    ReactDOM.render React.createElement(Suite), $('#main').get(0)
