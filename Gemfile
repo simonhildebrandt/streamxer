@@ -29,7 +29,8 @@ gem 'jbuilder'
 
 gem 'quiet_assets'
 gem 'tumblr_client'
-#gem "browserify-rails", "~> 0.7"
+
+gem 'omniauth-tumblr'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
