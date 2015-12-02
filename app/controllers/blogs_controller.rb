@@ -3,10 +3,14 @@ class BlogsController < ApplicationController
   before_action :get_blog, only: [:show, :update]
 
   def index
-    @blogs = current_user.blogs.limit(3)
+    @blogs = current_user.blogs.limit(10)
     if params[:collection]
       @blogs = @blogs.in(collection_ids: params[:collection])
     end
+    if params[:mode] == 'none'
+      @blogs = @blogs.uncollected
+    end
+
     respond_to do |format|
       format.html
       format.json

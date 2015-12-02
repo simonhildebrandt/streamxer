@@ -21,6 +21,8 @@ class Blog
 
   validates :name, presence: true
 
+  scope :uncollected, -> { where(:collection_ids.in => [[], nil]) }
+  
 
   def to_param
     name
