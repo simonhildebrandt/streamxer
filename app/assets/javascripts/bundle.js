@@ -35556,6 +35556,7 @@ CollectionTools = React.createClass({
       cache: null,
       valueRenderer: this.renderer,
       optionRenderer: this.renderer,
+      placeholder: "Add to collections...",
       filterOptions: function(options) {
         return options;
       },

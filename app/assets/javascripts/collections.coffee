@@ -81,6 +81,7 @@ CollectionTools = React.createClass
       cache: null
       valueRenderer: @renderer
       optionRenderer: @renderer
+      placeholder: "Add to collections..."
       filterOptions: (options) ->
         options
       allowCreate: true
