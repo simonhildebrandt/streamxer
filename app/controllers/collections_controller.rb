@@ -15,11 +15,19 @@ class CollectionsController < ApplicationController
   end
 
   def create
+    @collection = current_user.collections.create! collection_params
   end
 
   def update
   end
 
   def destroy
+    Collection.find(params[:id]).destroy!
+  end
+
+  private
+
+  def collection_params
+    params.permit('name')
   end
 end

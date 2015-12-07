@@ -1,5 +1,6 @@
 class Blog
   include Mongoid::Document
+  include TumblrClient
 
   field :name, type: String
   field :title, type: String
@@ -15,6 +16,9 @@ class Blog
 
   field :post_count, type: Integer
 
+  AVATAR_SIZES = [16, 24, 30, 40, 48, 64, 96, 128, 512]
+  embeds_many :avatars, class_name: 'Image', as: :imageish
+
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collections
   has_many :posts
@@ -22,7 +26,8 @@ class Blog
   validates :name, presence: true
 
   scope :uncollected, -> { where(:collection_ids.in => [[], nil]) }
-  
+  scope :sfw, -> { queryable.not.where(name: /porn|slut|anal|sexy/) }
+
 
   def to_param
     name
@@ -30,6 +35,16 @@ class Blog
 
   def collection_names
     collections.map(&:name)
+  end
+
+  def update_avatars!
+    update_attributes! avatars: all_avatar_images
+  end
+
+  def all_avatar_images
+    AVATAR_SIZES.map do |size|
+      { url: self.class.client.avatar(name, size), width: size, height: size }
+    end
   end
 
   def update_posts!

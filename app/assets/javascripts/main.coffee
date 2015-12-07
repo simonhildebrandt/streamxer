@@ -14,15 +14,19 @@ Suite = React.createClass
   getInitialState: ->
     blogs: new M.Blogs()
     collections: new M.Collections()
+    display:
+      mode: 'all'
 
   switch_blogs: (options) ->
+    @setState display: options
     @state.blogs.fetch data: options
 
   render: ->
-    R.div {},
+    R.div { className: 'suite' },
       C.CollectionsList
         collection: @state.collections
         switch_blogs: @switch_blogs
+        display: @state.display
       B.BlogList { collection: @state.blogs }
 
 

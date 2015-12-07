@@ -1,10 +1,11 @@
 React = require 'react'
 Backbone = require 'backbone'
+classNames = require 'classnames'
 R = require './factories'
 M = require './models'
 C = require './collections'
 $ = require 'jquery'
-
+Masonry = React.createFactory(require('react-masonry-component')(React))
 
 BlogView = React.createClass
   mixins: [Backbone.React.Component.mixin]
@@ -13,9 +14,13 @@ BlogView = React.createClass
   id: ->
     @props.model.id
 
+  description: ->
+    @state.model.description
+
   render: ->
-    R.div {},
-      R.a {href: "/blogs/" + @id()}, @id()
+    R.div { className: 'blog' },
+      R.div { className: 'title' }, R.a { href: "/blogs/" + @id() }, @id()
+      R.div { className: 'description' }, @description()
       C.CollectionTools model: @props.model
 
 BlogView = React.createFactory(BlogView)
@@ -29,7 +34,7 @@ BlogList = React.createClass
     @props.collection.fetch()
 
   render: ->
-    R.div {},
+    Masonry { className: 'blogs' },
       @props.collection.map (blog) =>
         BlogView key: blog.id, model: blog
 

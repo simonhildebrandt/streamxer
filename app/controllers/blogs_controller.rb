@@ -3,13 +3,14 @@ class BlogsController < ApplicationController
   before_action :get_blog, only: [:show, :update]
 
   def index
-    @blogs = current_user.blogs.limit(10)
+    @blogs = current_user.blogs
     if params[:collection]
       @blogs = @blogs.in(collection_ids: params[:collection])
     end
     if params[:mode] == 'none'
       @blogs = @blogs.uncollected
     end
+    @blogs = @blogs.sfw.limit(10)
 
     respond_to do |format|
       format.html
@@ -32,7 +33,7 @@ class BlogsController < ApplicationController
   private
 
   def blog_params
-    params.permit(collection_ids: [])
+    params.permit(:collection_ids => [])
   end
 
   def get_blog

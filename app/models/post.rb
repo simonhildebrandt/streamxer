@@ -1,7 +1,8 @@
 class Post
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
-
+  include TumblrClient
+  
   field :tumblr_id, type: String
   field :published_at, type: Time
 
@@ -22,10 +23,6 @@ class Post
   end
 
   class << self
-    def client
-      Tumblr::Client.new
-    end
-
     def collect_posts!(blog)
       puts "collecting posts from #{blog.name}"
       posts = []

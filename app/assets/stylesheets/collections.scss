@@ -1,0 +1,57 @@
+div.collection-wrapper {
+  height: 50px;
+  padding: 5px 0px;
+
+  input {
+    margin: 0 0 0 5px;
+    font-size: 1em;
+    padding: 2px 8px;
+    float: left;
+    border: none;
+  }
+
+  ul.collections_list {
+    margin: 0;
+    padding: 0;
+    float: left;
+    display: inline;
+
+    li {
+      float: left;
+      display: block;
+      padding: 8px 12px;
+      cursor: pointer;
+      //@include button-gradient();
+      background-color: #EEE;
+      border-color: #BBB;
+      border-style: solid;
+      @include border-width(1px, 0px, 1px, 1px);
+
+      span.delete {
+        padding-left: 10px;
+        color: red;
+      }
+
+      &:first-child {
+        @include border-left-radius(5px);
+      }
+
+      &:last-child {
+        @include border-right-radius(5px);
+        border-right-width: 1px;
+
+        &.selected:hover {
+          background-color: #FFF;
+        }
+      }
+
+      &.selected {
+        background-color: #FFF;
+      }
+
+      &:hover {
+        background-color: #FAEEEE;
+      }
+    }
+  }
+}

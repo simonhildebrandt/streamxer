@@ -1,18 +1,21 @@
 {
   "name": "streamxer",
   "dependencies": {
-    "jquery": "2.1.4",
-    "underscore": "1.8.3",
     "backbone": "1.2.3",
-    "react-select": "1.0.0-beta5",
     "backbone-react-component": "0.10.0",
     "backbone-relational": "0.10.0",
     "browserify": "~> 6.3",
     "browserify-incremental": "^1.4.0",
+    "classnames": "^2.2.1",
     "coffeeify": "^1.2.0",
     "jasmine-react-helpers": "~> 0.2",
+    "jquery": "2.1.4",
+    "masonry-layout": "^3.3.2",
     "react": "^0.14.1",
-    "react-dom": "^0.14.1"
+    "react-dom": "^0.14.1",
+    "react-masonry-component": "^2.0.0",
+    "react-select": "1.0.0-beta5",
+    "underscore": "1.8.3"
   },
   "license": "MIT",
   "engines": {
@@ -31,12 +34,13 @@
     "gulp-uglify": "^1.5.1",
     "gulp-util": "3.0.7",
     "gulp-watch": "^4.3.5",
+    "sass-module-importer": "^1.0.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "vinyl-transform": "^1.0.0",
     "watchify": "^3.6.1"
   },
   "scripts": {
-    "start": "gulp coffee & gulp browserify"
+    "start": "gulp coffee & gulp browserify & gulp styles"
   }
 }

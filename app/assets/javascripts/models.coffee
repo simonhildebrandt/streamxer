@@ -4,25 +4,22 @@ _ = require 'underscore'
 
 
 Collection = Backbone.RelationalModel.extend
-  url: '/collections'
+  urlRoot: '/collections'
 
 
 Blog = Backbone.RelationalModel.extend
   idAttribute: 'name'
+  toJSON: (options) ->
+    {
+      collection_ids: @get('collections').map (collection) =>
+        collection.get('id')
+    }
 
   relations: [
     type: Backbone.HasMany,
     key: 'collections',
     relatedModel: Collection
   ]
-
-  initialize: ->
-    @bind 'add:collections remove:collections', (collection, coll) =>
-      @save
-        collection_ids: @get('collections').map (collection) ->
-          collection.get('id')
-
-      @trigger("change", @)
 
 
 Blogs = Backbone.Collection.extend
@@ -38,3 +35,4 @@ Collections = Backbone.Collection.extend
 module.exports =
   Blogs: Blogs
   Collections: Collections
+  Collection: Collection
