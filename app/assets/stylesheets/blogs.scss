@@ -12,6 +12,14 @@ div.suite {
       width: 300px;
       float: left;
 
+      .id {
+        padding: 8px;
+        float: right;
+        color: gray;
+        font-size: 10px;
+        font-style: italic;
+      }
+
       .title {
         margin: 5px 0 10px 5px;
 

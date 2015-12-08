@@ -14,12 +14,16 @@ BlogView = React.createClass
   id: ->
     @props.model.id
 
+  title: ->
+    @state.model.title
+
   description: ->
     @state.model.description
 
   render: ->
     R.div { className: 'blog' },
-      R.div { className: 'title' }, R.a { href: "/blogs/" + @id() }, @id()
+      R.div { className: 'id' }, @id()
+      R.div { className: 'title' }, R.a { href: "/blogs/" + @id() }, @title()
       R.div { className: 'description' }, @description()
       C.CollectionTools model: @props.model
 
@@ -34,7 +38,7 @@ BlogList = React.createClass
     @props.collection.fetch()
 
   render: ->
-    Masonry { className: 'blogs' },
+    Masonry { className: 'blogs', options: {itemSelector: '.blog', columnWidth: 322} },
       @props.collection.map (blog) =>
         BlogView key: blog.id, model: blog
 

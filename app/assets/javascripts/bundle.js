@@ -39254,6 +39254,9 @@ BlogView = React.createClass({
   id: function() {
     return this.props.model.id;
   },
+  title: function() {
+    return this.state.model.title;
+  },
   description: function() {
     return this.state.model.description;
   },
@@ -39261,10 +39264,12 @@ BlogView = React.createClass({
     return R.div({
       className: 'blog'
     }, R.div({
+      className: 'id'
+    }, this.id()), R.div({
       className: 'title'
     }, R.a({
       href: "/blogs/" + this.id()
-    }, this.id())), R.div({
+    }, this.title())), R.div({
       className: 'description'
     }, this.description()), C.CollectionTools({
       model: this.props.model
@@ -39282,7 +39287,11 @@ BlogList = React.createClass({
   },
   render: function() {
     return Masonry({
-      className: 'blogs'
+      className: 'blogs',
+      options: {
+        itemSelector: '.blog',
+        columnWidth: 322
+      }
     }, this.props.collection.map((function(_this) {
       return function(blog) {
         return BlogView({

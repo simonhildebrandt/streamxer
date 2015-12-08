@@ -5,7 +5,21 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab);
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #F3F3F9; }
+  background-color: #F3F3F9;
+  padding: 0;
+  margin: 0; }
+
+div.auth {
+  float: right;
+  padding: 8px 12px;
+  background-color: white;
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-style: solid;
+  border-color: gray;
+  border-bottom-left-radius: 5px; }
 
 /**
  * React Select
@@ -374,6 +388,12 @@ div.suite {
     margin: 10px 10px 0 0;
     width: 300px;
     float: left; }
+    div.suite .blogs .blog .id {
+      padding: 8px;
+      float: right;
+      color: gray;
+      font-size: 10px;
+      font-style: italic; }
     div.suite .blogs .blog .title {
       margin: 5px 0 10px 5px; }
       div.suite .blogs .blog .title a {
