@@ -4,8 +4,6 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab);
 
-
-
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: #F3F3F9;
@@ -44,7 +42,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', end
 
 
 div.auth {
-  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
   padding: 8px 12px;
   background-color: white;
   @include border-width(0, 0, 1px, 1px);

@@ -1,5 +1,7 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
+  include TumblrClient
 
   field :oauth_token, type: String
   field :oauth_token_secret, type: String
@@ -24,12 +26,21 @@ class User
     offset = 0
     loop do
       puts "collecting blogs #{offset}"
-      result = client.following(offset: offset)
+      result = following_with_offset(offset)
+      break unless result['blogs'].is_a? Array
       blogs += result['blogs'].map{|r| Blog.upsert!(r)}
       offset += 20
       break if offset > result['total_blogs']
     end
     blogs
+  end
+
+  def following_with_offset offset
+    client.following(offset: offset).tap do |result|
+      if result['status'] == 403
+        fail TumblrClient::Error.new(result['msg'])
+      end
+    end
   end
 
   def oauth_credentials

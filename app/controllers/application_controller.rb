@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def login(user)
-    session[:user_id] = user.id
+    session[:user_id] = user.id.to_s
   end
 
   def logout
@@ -25,6 +25,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    session[:user_id] && User.find(session[:user_id])
+    session[:user_id] && User.where(id: session[:user_id]).first
   end
 end

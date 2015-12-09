@@ -20,10 +20,13 @@ BlogView = React.createClass
   description: ->
     @state.model.description
 
+  post_count: ->
+    @state.model.post_count
+
   render: ->
     R.div { className: 'blog' },
-      R.div { className: 'id' }, @id()
-      R.div { className: 'title' }, R.a { href: "/blogs/" + @id() }, @title()
+      R.div { className: 'title' }, R.a { href: "/blogs/" + @id() }, @title() || @id()
+      R.div { className: 'id' }, @id() + ' - ' + @post_count() + ' posts'
       R.div { className: 'description' }, @description()
       C.CollectionTools model: @props.model
 

@@ -8,4 +8,6 @@ module TumblrClient
       Tumblr::Client.new
     end
   end
+
+  class Error < StandardError; end
 end

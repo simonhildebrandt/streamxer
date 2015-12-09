@@ -13,19 +13,19 @@ div.suite {
       float: left;
 
       .id {
-        padding: 8px;
-        float: right;
+        margin: 0 4px;
         color: gray;
         font-size: 10px;
         font-style: italic;
       }
 
       .title {
-        margin: 5px 0 10px 5px;
+        margin: 5px 0 8px 5px;
 
         a {
           font-family: 'Roboto Slab', sans-serif;
-          font-size: 20px;
+          font-size: 18px;
+          white-space: nowrap;
           text-decoration: none;
         }
       }

@@ -39260,16 +39260,19 @@ BlogView = React.createClass({
   description: function() {
     return this.state.model.description;
   },
+  post_count: function() {
+    return this.state.model.post_count;
+  },
   render: function() {
     return R.div({
       className: 'blog'
     }, R.div({
-      className: 'id'
-    }, this.id()), R.div({
       className: 'title'
     }, R.a({
       href: "/blogs/" + this.id()
-    }, this.title())), R.div({
+    }, this.title() || this.id())), R.div({
+      className: 'id'
+    }, this.id() + ' - ' + this.post_count() + ' posts'), R.div({
       className: 'description'
     }, this.description()), C.CollectionTools({
       model: this.props.model

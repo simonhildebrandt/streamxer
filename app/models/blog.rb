@@ -1,5 +1,6 @@
 class Blog
   include Mongoid::Document
+  include Mongoid::Timestamps
   include TumblrClient
 
   field :name, type: String
@@ -13,6 +14,7 @@ class Blog
   field :ask_anon, type: Boolean
   field :display_type, type: String
   field :last_updated_at, type: Time
+  field :deactivated, type: Boolean, default: false
 
   field :post_count, type: Integer
 
@@ -21,12 +23,13 @@ class Blog
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collections
-  has_many :posts
+  has_many :posts, dependent: :destroy
 
   validates :name, presence: true
 
   scope :uncollected, -> { where(:collection_ids.in => [[], nil]) }
-  scope :sfw, -> { queryable.not.where(name: /porn|slut|anal|sexy|dominat/) }
+  scope :sfw, -> { queryable.not.where(name: /porn|slut|anal|sexy|dominat|bitch|gag|women/) }
+  scope :active, -> { where deactivated: false }
 
 
   def to_param
@@ -49,6 +52,7 @@ class Blog
 
   def update_posts!
     Post.collect_posts!(self)
+    posts.newest.skip(Post::MAX_POSTS).destroy_all
     update_attributes! last_updated_at: Time.current
   end
 

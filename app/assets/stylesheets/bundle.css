@@ -10,7 +10,9 @@ body {
   margin: 0; }
 
 div.auth {
-  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
   padding: 8px 12px;
   background-color: white;
   border-top-width: 0;
@@ -389,16 +391,16 @@ div.suite {
     width: 300px;
     float: left; }
     div.suite .blogs .blog .id {
-      padding: 8px;
-      float: right;
+      margin: 0 4px;
       color: gray;
       font-size: 10px;
       font-style: italic; }
     div.suite .blogs .blog .title {
-      margin: 5px 0 10px 5px; }
+      margin: 5px 0 8px 5px; }
       div.suite .blogs .blog .title a {
         font-family: 'Roboto Slab', sans-serif;
-        font-size: 20px;
+        font-size: 18px;
+        white-space: nowrap;
         text-decoration: none; }
     div.suite .blogs .blog .description {
       font-size: 12px;
