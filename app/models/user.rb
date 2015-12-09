@@ -10,6 +10,10 @@ class User
   has_and_belongs_to_many :blogs
   has_many :collections
 
+  after_create do |user|
+    SyncBlogsForUserWorker.perform_async(user.id)
+  end
+
 
   def client
     Tumblr::Client.new(oauth_credentials)

@@ -31,6 +31,11 @@ class Blog
   scope :sfw, -> { queryable.not.where(name: /porn|slut|anal|sexy|dominat|bitch|gag|women/) }
   scope :active, -> { where deactivated: false }
 
+  after_create do |blog|
+    SyncPostsForBlogWorker.perform_async(blog.id)
+    SyncAvatarsForBlogWorker.perform_async(blog.id)
+  end
+
 
   def to_param
     name
