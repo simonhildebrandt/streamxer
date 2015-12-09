@@ -37,8 +37,8 @@ gulp.task('coffee', function() {
 gulp.task('sass', function(){
   gulp.src(styles_dir + 'index.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(rename('bundle.css'))
-    .pipe(gulp.dest('./app/assets/stylesheets/'));
+    .pipe(rename('application.css'))
+    .pipe(gulp.dest('./public'));
 });
 
 gulp.task('styles', function(){
@@ -60,9 +60,9 @@ gulp.task('browserify', function () {
         gutil.log(err.toString());
         this.emit("end");
       })
-      .pipe(source('bundle.js'))
+      .pipe(source('application.js'))
       .pipe(notify("Rebundled."))
-      .pipe(gulp.dest('./app/assets/javascripts'))
+      .pipe(gulp.dest('./public'))
     ;
   }
 

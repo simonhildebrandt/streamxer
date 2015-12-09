@@ -1,7 +1,7 @@
-production:
-  uri: <%= ENV['MONGO_URI'] %>
+# production:
+#   uri: <%= ENV['MONGO_URI'] %>
 
-development:
+production:
   # Configure available database clients. (required)
   clients:
     # Defines the default client. (required)
