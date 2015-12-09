@@ -6,4 +6,8 @@ class MainController < ApplicationController
 
   def welcome
   end
+
+  def health
+    render text: User.count
+  end
 end

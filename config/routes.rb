@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   root 'main#index'
   get 'welcome' => 'main#welcome', as: 'welcome'
+  get 'health' => 'main#health'
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy', as: 'logout'
 
