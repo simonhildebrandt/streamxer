@@ -1,5 +1,5 @@
 class MainController < ApplicationController
-  skip_before_filter :require_logged_in, only: [:welcome]
+  skip_before_filter :require_logged_in, only: [:welcome, :health]
 
   def index
   end
