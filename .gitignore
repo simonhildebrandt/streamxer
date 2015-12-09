@@ -19,3 +19,5 @@
 .byebug_history
 node_modules
 tumble
+creds.txt
+streamxer*
