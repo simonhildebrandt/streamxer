@@ -21,3 +21,4 @@ node_modules
 tumble
 creds.txt
 streamxer*
+config/tumblr.yml
