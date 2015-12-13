@@ -11,7 +11,7 @@ class User
   has_many :collections
 
   after_create do |user|
-    SyncBlogsForUserWorker.perform_async(user.id)
+    user.sync_blogs!
   end
 
 
@@ -24,6 +24,10 @@ class User
   end
 
   private
+
+  def sync_blogs!
+    SyncBlogsForUserWorker.perform_async(id)
+  end
 
   def following_blogs
     blogs = []

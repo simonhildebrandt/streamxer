@@ -4,7 +4,7 @@ class SyncPostsForBlogWorker
   def perform(blog_id)
     Blog.find(blog_id).tap do |blog|
       blog.update_posts!
-      blog.update_attributes! syncing: false
+      blog.finished_post_sync!
     end
   end
 end

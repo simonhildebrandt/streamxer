@@ -33,8 +33,7 @@ class Blog
   scope :active, -> { where deactivated: false }
 
   after_create do |blog|
-    start_post_sync
-    SyncAvatarsForBlogWorker.perform_async(blog.id)
+    blog.sync!
   end
 
 
@@ -62,9 +61,18 @@ class Blog
     update_attributes! last_updated_at: Time.current
   end
 
-  def start_post_sync
+  def sync!
+    start_post_sync!
+    SyncAvatarsForBlogWorker.perform_async(id)
+  end
+
+  def start_post_sync!
     update_attributes! syncing: true
     SyncPostsForBlogWorker.perform_async(id)
+  end
+
+  def finished_post_sync!
+    update_attributes! syncing: false
   end
 
   class << self
