@@ -23,10 +23,19 @@ BlogView = React.createClass
   post_count: ->
     @state.model.post_count
 
+  syncing: ->
+    @state.model.syncing
+
+  status: ->
+    if @syncing()
+      " - syncing"
+    else
+      ' - ' + @post_count() + ' posts'
+
   render: ->
     R.div { className: 'blog' },
       R.div { className: 'title' }, R.a { href: "/blogs/" + @id() }, @title() || @id()
-      R.div { className: 'id' }, @id() + ' - ' + @post_count() + ' posts'
+      R.div { className: 'id' }, @id() + @status()
       R.div { className: 'description' }, @description()
       C.CollectionTools model: @props.model
 

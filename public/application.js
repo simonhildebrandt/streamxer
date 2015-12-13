@@ -39263,6 +39263,16 @@ BlogView = React.createClass({
   post_count: function() {
     return this.state.model.post_count;
   },
+  syncing: function() {
+    return this.state.model.syncing;
+  },
+  status: function() {
+    if (this.syncing()) {
+      return " - syncing";
+    } else {
+      return ' - ' + this.post_count() + ' posts';
+    }
+  },
   render: function() {
     return R.div({
       className: 'blog'
@@ -39272,7 +39282,7 @@ BlogView = React.createClass({
       href: "/blogs/" + this.id()
     }, this.title() || this.id())), R.div({
       className: 'id'
-    }, this.id() + ' - ' + this.post_count() + ' posts'), R.div({
+    }, this.id() + this.status()), R.div({
       className: 'description'
     }, this.description()), C.CollectionTools({
       model: this.props.model
