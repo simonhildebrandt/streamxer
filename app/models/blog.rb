@@ -15,6 +15,7 @@ class Blog
   field :display_type, type: String
   field :last_updated_at, type: Time
   field :deactivated, type: Boolean, default: false
+  field :syncing, type: Boolean, default: false
 
   field :post_count, type: Integer
 
@@ -32,7 +33,7 @@ class Blog
   scope :active, -> { where deactivated: false }
 
   after_create do |blog|
-    SyncPostsForBlogWorker.perform_async(blog.id)
+    start_post_sync
     SyncAvatarsForBlogWorker.perform_async(blog.id)
   end
 
@@ -59,6 +60,11 @@ class Blog
     Post.collect_posts!(self)
     posts.newest.skip(Post::MAX_POSTS).destroy_all
     update_attributes! last_updated_at: Time.current
+  end
+
+  def start_post_sync
+    update_attributes! syncing: true
+    SyncPostsForBlogWorker.perform_async(blog.id)
   end
 
   class << self
