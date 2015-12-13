@@ -64,7 +64,7 @@ class Blog
 
   def start_post_sync
     update_attributes! syncing: true
-    SyncPostsForBlogWorker.perform_async(blog.id)
+    SyncPostsForBlogWorker.perform_async(id)
   end
 
   class << self
