@@ -10,6 +10,6 @@ class MainController < ApplicationController
   end
 
   def health
-    render text: "#{User.count} users, #{Blog.count} blogs, #{Post.count} posts, #{Sidekiq::Queue.new.size} jobs"
+    render text: "#{User.count} users, #{Blog.count} blogs, #{Post.count} posts, #{Sidekiq::Queue.new.size} jobs, #{Blog.syncing.count} blogs syncing."
   end
 end

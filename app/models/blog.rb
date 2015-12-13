@@ -31,6 +31,7 @@ class Blog
   scope :uncollected, -> { where(:collection_ids.in => [[], nil]) }
   scope :sfw, -> { queryable.not.where(name: /porn|slut|anal|sexy|dominat|bitch|gag|women/) }
   scope :active, -> { where deactivated: false }
+  scope :syncing, -> { where syncing: true }
 
   after_create do |blog|
     blog.sync!
