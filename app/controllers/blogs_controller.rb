@@ -10,7 +10,7 @@ class BlogsController < ApplicationController
     if params[:mode] == 'none'
       @blogs = @blogs.uncollected
     end
-    @blogs = @blogs.sfw.limit(10)
+    @blogs = @blogs.sfw
 
     respond_to do |format|
       format.html
