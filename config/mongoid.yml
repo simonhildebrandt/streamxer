@@ -1,7 +1,9 @@
-production:
-  clients:
-    default:
-      uri: <%= ENV['MONGO_URI'] %>
+# production:
+#   clients:
+#     default:
+#       uri: <%= ENV['MONGO_URI'] %>
+#       options:
+#         max_pool_size: 20
 
 development:
   # Configure available database clients. (required)

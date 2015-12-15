@@ -9,10 +9,10 @@ class Post
 
   embeds_many :photos
 
-  belongs_to :blog, counter_cache: :post_count
+  belongs_to :blog
 
-  scope :photos, -> { where(type: 'photo') }
-  scope :newest, -> { order(:tumblr_id.desc) }
+  scope :photos, -> { where type: 'photo' }
+  scope :newest, -> { order :tumblr_id.desc }
 
   MAX_POSTS = 100
 
@@ -29,34 +29,28 @@ class Post
     def collect_posts!(blog)
       puts "collecting posts from #{blog.name}"
       offset = 0
+      new_posts = []
 
-      catch :post_exists do
-        loop do
-          puts "collecting posts: #{offset}"
-          result = client.posts(blog.name, offset: offset)
+      loop do
+        puts "collecting posts: #{offset}"
+        result = client.posts(blog.name, offset: offset)
 
-          if result['status'] == 404
-            blog.update_attributes! deactivated: true
-            break
-          end
-
-          break unless result['posts'].is_a? Array
-          result['posts'].map do |p|
-            Post.upsert!(blog, p)
-          end
-
-          offset += 20
-          break if offset > result['total_posts'] || offset >= MAX_POSTS
+        if result['status'] == 404
+          blog.update_attributes! deactivated: true
+          break
         end
-      end
-    end
 
-    def upsert!(blog, post)
-      blog.posts.find_or_initialize_by(tumblr_id: post['id']).tap do |pst|
-        throw :post_exists if pst.persisted?
+        break unless result['posts'].is_a? Array
 
-        pst.update_attributes!(post)
+        tids = result['posts'].map { |p| p['id'].to_s }
+        overlaps = blog.posts.in(tumblr_id: tids).pluck(:tumblr_id)
+        new_posts += result['posts'].reject {|p| overlaps.include?(p['id'].to_s) }
+
+        offset += TumblrClient::PAGE_SIZE
+        break if !overlaps.empty? || offset > result['total_posts'] || offset >= MAX_POSTS
       end
+
+      blog.posts.create!(new_posts)
     end
   end
 end

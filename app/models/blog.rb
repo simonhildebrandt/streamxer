@@ -17,8 +17,6 @@ class Blog
   field :deactivated, type: Boolean, default: false
   field :syncing, type: Boolean, default: false
 
-  field :post_count, type: Integer
-
   AVATAR_SIZES = [16, 24, 30, 40, 48, 64, 96, 128, 512]
   embeds_many :avatars, class_name: 'Image', as: :imageish
 
@@ -28,10 +26,10 @@ class Blog
 
   validates :name, presence: true
 
-  scope :uncollected, -> { where(:collection_ids.in => [[], nil]) }
-  scope :sfw, -> { queryable.not.where(name: /porn|slut|anal|sexy|dominat|bitch|gag|women/) }
-  scope :active, -> { where deactivated: false }
-  scope :syncing, -> { where syncing: true }
+  scope :uncollected, -> { where :collection_ids.in => [[], nil] }
+  scope :syncing,     -> { where syncing: true }
+  scope :active,      -> { where deactivated: false }
+  scope :sfw,         -> { queryable.not.where name: /porn|slut|anal|sexy|dominat|bitch|gag|women/ }
 
   after_create do |blog|
     blog.sync!
