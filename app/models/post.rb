@@ -14,6 +14,9 @@ class Post
   scope :photos, -> { where type: 'photo' }
   scope :newest, -> { order :tumblr_id.desc }
 
+  index(blog_id: 1)
+  index({tumblr_id: 1}, {unique: true})
+
   MAX_POSTS = 100
 
 

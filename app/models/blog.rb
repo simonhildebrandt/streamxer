@@ -16,6 +16,7 @@ class Blog
   field :last_updated_at, type: Time
   field :deactivated, type: Boolean, default: false
   field :syncing, type: Boolean, default: false
+  field :post_count, type: Integer
 
   AVATAR_SIZES = [16, 24, 30, 40, 48, 64, 96, 128, 512]
   embeds_many :avatars, class_name: 'Image', as: :imageish
@@ -23,6 +24,8 @@ class Blog
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collections
   has_many :posts, dependent: :destroy
+
+  index({uid: 1}, {unique: true})
 
   validates :name, presence: true
 
@@ -57,7 +60,7 @@ class Blog
   def update_posts!
     Post.collect_posts!(self)
     posts.newest.skip(Post::MAX_POSTS).destroy_all
-    update_attributes! last_updated_at: Time.current
+    update_attributes! post_count: posts.count, last_updated_at: Time.current
   end
 
   def sync!
