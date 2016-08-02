@@ -15,4 +15,8 @@ class Collection
   def posts
     Post.in(blog: blogs.map(&:id))
   end
+
+  def post_count
+    posts.count
+  end
 end

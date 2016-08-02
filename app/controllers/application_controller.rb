@@ -24,7 +24,11 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
+  def request_user_id
+    session[:user_id] || request.headers['X-STREAMXER-USER']
+  end
+
   def current_user
-    session[:user_id] && User.where(id: session[:user_id]).first
+     request_user_id && User.where(id: request_user_id).first
   end
 end

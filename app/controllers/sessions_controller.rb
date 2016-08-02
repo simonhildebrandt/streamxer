@@ -2,8 +2,13 @@ class SessionsController < ApplicationController
   skip_before_filter :require_logged_in, only: [:create]
 
   def create
-    login sync_user_from_auth_hash(auth_hash)
-    redirect_to root_path
+    user = sync_user_from_auth_hash(auth_hash)
+    login user
+    if env["omniauth.params"]['mode'] == 'mobile'
+      redirect_to "streamxer://#{user.id}"
+    else
+      redirect_to root_path
+    end
   end
 
   def destroy
